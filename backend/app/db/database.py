@@ -1,14 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from app.core.config import DATABASE_URL
+from app.core.config import Settings
 
+settings = Settings()
 connect_args = {}
 
-if DATABASE_URL and DATABASE_URL.startswith("sqlite"):
+if settings.DATABASE_URL and settings.DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
 
 engine = create_engine(
-    DATABASE_URL,
+    settings.DATABASE_URL,
     connect_args=connect_args
 )
 

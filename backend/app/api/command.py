@@ -11,7 +11,7 @@ from app.intents.handler import handle_intent
 router = APIRouter()
 
 
-@router.post("/command")
+@router.post("/")
 def process_command(request: CommandRequest,
                     db: Session = Depends(get_db)):
 

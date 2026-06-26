@@ -1,12 +1,12 @@
 from openai import OpenAI
-from app.core.config import Settings
+from app.core.config import settings
 from app.ai.prompts.system_prompt import SYSTEM_PROMPT
 
-client = OpenAI(api_key= Settings.OPENAI_API_KEY)
+client = OpenAI(api_key= settings.OPENAI_API_KEY)
 
 def chat(user_message: str):
     response = client.chat.completions.create(
-        model = Settings.MODEL,
+        model = settings.MODEL,
         messages=[
             {
                 "role": "system", 
