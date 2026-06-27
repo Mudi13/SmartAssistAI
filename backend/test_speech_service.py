@@ -1,6 +1,5 @@
-from app.services.speech_service import SpeechService
+from app.services.voice_service import VoiceService
 
-audio_file = SpeechService.text_to_speech("Hello Mudit, SmartAssist is working!")
+response = VoiceService.process_voice()
 
-if audio_file:
-    SpeechService.play_audio(audio_file)
+print(response)
