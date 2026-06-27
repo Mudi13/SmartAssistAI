@@ -1,7 +1,6 @@
 from app.services.speech_service import SpeechService
 
-audio = SpeechService.record_audio()
+audio_file = SpeechService.text_to_speech("Hello Mudit, SmartAssist is working!")
 
-text = SpeechService.speech_to_text(audio)
-
-print(text)
+if audio_file:
+    SpeechService.play_audio(audio_file)
