@@ -1,12 +1,19 @@
 import sounddevice as sd
 import soundfile as sf
 import numpy as np
+from faster_whisper import WhisperModel
 
 
 class SpeechService:
     SAMPLE_RATE = 44100
     CHANNELS = 1
     DTYPE = "float32"
+
+    MODEL = WhisperModel(
+    "base",
+    device="cpu",
+    compute_type="int8"
+)
 
     @staticmethod
     def record_audio(duration: int = 5, filename: str = "voice.wav"):
@@ -48,4 +55,28 @@ class SpeechService:
 
         except Exception as e:
             print(f"❌ Recording failed: {e}")
+            return None
+        
+        
+    #Speech to Text (STT)
+    @staticmethod
+    def speech_to_text(audio_path: str):
+        try:
+            segments, info = SpeechService.MODEL.transcribe(
+                audio_path,
+                beam_size = 5,
+                vad_filter=True
+            )
+            
+            text = " ".join(segment.text for segment in segments).strip()
+            
+            if not text:
+                print("⚠️ No speech detected.")
+                return None
+                
+            return text
+        
+   
+        except Exception as e:
+            print(f"❌ Speech recognition failed: {e}")
             return None
