@@ -19,7 +19,6 @@ class AIService:
                     "content": user_message
                 },   
             ],
-             max_tokens=100,
         )
-    
+
         return response.choices[0].message.content

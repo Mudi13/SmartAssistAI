@@ -4,24 +4,30 @@ import numpy as np
 from faster_whisper import WhisperModel
 import asyncio
 import edge_tts
-import pygame
+import vlc
+import time
+
+from app.core.config import settings
 
 
 class SpeechService:
-    SAMPLE_RATE = 44100
+    SAMPLE_RATE = settings.SAMPLE_RATE
     CHANNELS = 1
     DTYPE = "float32"
 
-    VOICE = "en-US-AriaNeural"
+    VOICE = settings.VOICE_NAME
 
     MODEL = WhisperModel(
-    "base",
+    "small",
     device="cpu",
     compute_type="int8"
 )
 
     @staticmethod
-    def record_audio(duration: int = 5, filename: str = "voice.wav"):
+    def record_audio(
+        duration: int = settings.VOICE_RECORD_DURATION,
+        filename: str = "voice.wav",
+    ):
         """
         Record audio from the default microphone.
 
@@ -34,7 +40,6 @@ class SpeechService:
         """
 
         try:
-            print("🎤 Recording... Speak now!")
 
             audio = sd.rec(
                 int(duration * SpeechService.SAMPLE_RATE),
@@ -70,7 +75,8 @@ class SpeechService:
             segments, info = SpeechService.MODEL.transcribe(
                 audio_path,
                 beam_size = 5,
-                vad_filter=True
+                vad_filter=True,
+                language="en",
             )
             
             text = " ".join(segment.text for segment in segments).strip()
@@ -103,27 +109,29 @@ class SpeechService:
             asyncio.run(
             SpeechService._generate_speech(text, filename)
         )
-
-            print(f"🔊 Speech saved as {filename}")
-
+            
             return filename
 
         except Exception as e:
             print(f"❌ Text-to-Speech failed: {e}")
             return None
         
+  
     @staticmethod
     def play_audio(file_path: str):
-        try: 
-            pygame.mixer.init()
-            
-            pygame.mixer.music.load(file_path)
-            
-            pygame.mixer.music.play()
-        
-            while pygame.mixer.music.get_busy():
-                pygame.time.Clock().tick(10)
-        
+        try:
+            player = vlc.MediaPlayer(file_path)
+            player.play()
+
+        # Wait until playback starts
+            time.sleep(0.5)
+
+            while player.is_playing():
+                time.sleep(0.1)
+
+            player.stop()
 
         except Exception as e:
             print(f"❌ Audio playback failed: {e}")
+        
+  
