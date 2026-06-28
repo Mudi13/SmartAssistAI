@@ -1,5 +1,6 @@
 from app.services.speech_service import SpeechService
 from app.ai.services.ai_service import AIService
+from app.services.memory_service import MemoryService
 import os
 
 class VoiceService:
@@ -19,13 +20,18 @@ class VoiceService:
             if not text:
                 print("⚠️ No text detected from speech.")
                 return None
+            
+            MemoryService.add_user_message(text)
 
             print("🤖 Thinking...")
-            response = AIService.ask(text)
+            messages = MemoryService.get_messages()
+            response = AIService.ask(messages)
 
             if not response:
                 print("❌ AIService returned an empty response.")
                 return None
+    
+            MemoryService.add_ai_message(response)
 
             print("🔊 Generating speech...")
             speech_file = SpeechService.text_to_speech(response)

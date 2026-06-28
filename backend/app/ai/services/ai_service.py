@@ -6,7 +6,7 @@ client = OpenAI(api_key= settings.OPENAI_API_KEY)
 
 class AIService:
     @staticmethod
-    def ask(user_message: str):
+    def ask(messages):
         response = client.chat.completions.create(
             model = settings.MODEL,
             messages=[
@@ -14,10 +14,7 @@ class AIService:
                     "role": "system", 
                     "content": SYSTEM_PROMPT
                 },
-                {
-                    "role": "user", 
-                    "content": user_message
-                },   
+                *messages  
             ],
         )
 
