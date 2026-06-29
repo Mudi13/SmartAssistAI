@@ -17,4 +17,6 @@ class Settings(BaseSettings):
         extra="ignore"
     )
     
+    MAX_CONVERSATION_MESSAGES: int = 20
+    
 settings = Settings()

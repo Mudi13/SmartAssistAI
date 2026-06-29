@@ -1,8 +1,9 @@
+from app.core.config import settings
 class MemoryService:
 
     conversation = []
     
-    MAX_MESSAGES = 20
+    MAX_MESSAGES = settings.MAX_CONVERSATION_MESSAGES
 
     @staticmethod
     def add_user_message(message: str):
