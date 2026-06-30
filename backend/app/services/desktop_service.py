@@ -61,3 +61,14 @@ class DesktopService:
         except Exception as e:
             print(f"❌ Error pressing key: {e}")
             return False
+        
+    @staticmethod
+    def take_screenshot(filename : str = "screenshot.png"):
+        try:
+            screenshot = pyautogui.screenshot()
+            screenshot.save(filename)
+            return filename
+
+        except Exception as e:
+            print(f"❌ Error taking screenshot: {e}")
+            return None
