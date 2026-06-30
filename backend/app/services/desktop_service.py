@@ -1,4 +1,5 @@
 import subprocess
+import pyautogui
 
 class DesktopService:
     
@@ -28,3 +29,35 @@ class DesktopService:
             print(f"❌ App Not Found: {e}")
             return False            
         
+    
+    @staticmethod
+    def move_mouse(x: int, y: int, duration: float = 1.0):
+        try:
+            pyautogui.moveTo(x, y, duration=duration)
+            return True
+            
+        except Exception as e:
+            print(f"❌ Error moving mouse: {e}")
+            return False
+        
+    
+    @staticmethod
+    def type_text(text: str):
+        try:
+            pyautogui.write(text)
+            return True
+        
+        except Exception as e:
+            print(f"❌ Error typing text: {e}")
+            return False
+        
+    
+    @staticmethod
+    def press_key(key: str):
+        try:
+            pyautogui.press(key)
+            return True
+        
+        except Exception as e:
+            print(f"❌ Error pressing key: {e}")
+            return False
