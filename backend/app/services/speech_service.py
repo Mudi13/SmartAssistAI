@@ -64,7 +64,7 @@ class SpeechService:
             return filename
 
         except Exception as e:
-            print(f"❌ Recording failed: {e}")
+            print(f"Recording failed: {e}")
             return None
         
         
@@ -89,7 +89,7 @@ class SpeechService:
         
    
         except Exception as e:
-            print(f"❌ Speech recognition failed: {e}")
+            print(f"Speech recognition failed: {e}")
             return None
         
 #Text To Speech (TTS)
@@ -113,7 +113,7 @@ class SpeechService:
             return filename
 
         except Exception as e:
-            print(f"❌ Text-to-Speech failed: {e}")
+            print(f"Text-to-Speech failed: {e}")
             return None
         
   
@@ -132,6 +132,6 @@ class SpeechService:
             player.stop()
 
         except Exception as e:
-            print(f"❌ Audio playback failed: {e}")
+            print(f"Audio playback failed: {e}")
         
   

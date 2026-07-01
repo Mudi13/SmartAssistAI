@@ -13,7 +13,7 @@ router = APIRouter()
 
 @router.post("/")
 def process_command(request: CommandRequest,
-                    db: Session = Depends(get_db)):
+    db: Session = Depends(get_db)):
 
     intent = detect_intent(request.text)
 

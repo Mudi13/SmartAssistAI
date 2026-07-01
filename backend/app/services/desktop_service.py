@@ -26,7 +26,7 @@ class DesktopService:
             return True
     
         except Exception as e:
-            print(f"❌ App Not Found: {e}")
+            print(f"App Not Found: {e}")
             return False            
         
     
@@ -37,7 +37,7 @@ class DesktopService:
             return True
             
         except Exception as e:
-            print(f"❌ Error moving mouse: {e}")
+            print(f"Error moving mouse: {e}")
             return False
         
     
@@ -48,7 +48,7 @@ class DesktopService:
             return True
         
         except Exception as e:
-            print(f"❌ Error typing text: {e}")
+            print(f"Error typing text: {e}")
             return False
         
     
@@ -59,7 +59,7 @@ class DesktopService:
             return True
         
         except Exception as e:
-            print(f"❌ Error pressing key: {e}")
+            print(f"Error pressing key: {e}")
             return False
         
     @staticmethod
@@ -70,5 +70,5 @@ class DesktopService:
             return filename
 
         except Exception as e:
-            print(f"❌ Error taking screenshot: {e}")
+            print(f"Error taking screenshot: {e}")
             return None

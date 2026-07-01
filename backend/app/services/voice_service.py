@@ -18,7 +18,7 @@ class VoiceService:
             text = SpeechService.speech_to_text(audio_file)
             
             if not text:
-                print("⚠️ No text detected from speech.")
+                print("No text detected from speech.")
                 return None
             
             MemoryService.add_user_message(text)
@@ -28,7 +28,7 @@ class VoiceService:
             response = AIService.ask(messages)
 
             if not response:
-                print("❌ AIService returned an empty response.")
+                print("AIService returned an empty response.")
                 return None
     
             MemoryService.add_ai_message(response)
@@ -50,7 +50,7 @@ class VoiceService:
                     os.remove(speech_file)
 
             except Exception as e:
-                print(f"⚠️ Cleanup failed: {e}")
+                print(f"Cleanup failed: {e}")
                 
                 
             print("✅ Conversation completed.")
@@ -62,7 +62,7 @@ class VoiceService:
             }
 
         except Exception as e:
-            print(f"❌ Voice conversation failed: {e}")
+            print(f"Voice conversation failed: {e}")
             return {
                 "success": False,
                 "message": str(e)
